@@ -1,10 +1,21 @@
 package main
 
 import (
+	"context"
 	"fmt"
 
+	proto "github.com/johnantonusmaximus/go-micro/proto"
 	micro "github.com/micro/go-micro"
 )
+
+type Greeter struct{}
+
+func (g *Greeter) Hello(ctx context.Context, req *proto.HelloRequest, rsp *proto.HelloResponse) error {
+	rsp.Greeting = "Hello" + req.Name
+
+	fmt.Printf("Responding with %s\n", rsp.Greeting)
+	return nil
+}
 
 func main() {
 	service := micro.NewService(
@@ -16,6 +27,8 @@ func main() {
 	)
 
 	service.Init()
+
+	proto.RegisterGreeterHandler(service.Server(), new(Greeter))
 
 	if err := service.Run(); err != nil {
 		fmt.Println(err)
