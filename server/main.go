@@ -28,7 +28,7 @@ func main() {
 
 	service.Init()
 
-	proto.RegisterGreeterHandler(service.Server(), new(Greeter))
+	proto.RegisterGreeterHandler(service.Server(), new(proto.Greeter))
 
 	if err := service.Run(); err != nil {
 		fmt.Println(err)

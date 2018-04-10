@@ -25,7 +25,7 @@ func main() {
 }
 
 func hello(t time.Time, greeter proto.GreeterClient) {
-	rsp, err := greeter.hello(context.TODO(), &proto.HelloRequest{Name: "John, calling at " + t.String()})
+	rsp, err := greeter.Hello(context.TODO(), &proto.HelloRequest{Name: "John, calling at " + t.String()})
 	if err != nil {
 		fmt.Println(err)
 		return
